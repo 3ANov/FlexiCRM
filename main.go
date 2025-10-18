@@ -1,36 +1,57 @@
 package main
 
 import (
+	"FlexiCRM/internal/core"
 	"embed"
+	"flag"
+	"fmt"
+	"log"
 
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 )
 
-//go:embed all:frontend/dist
+//go:embed frontend/dist
 var assets embed.FS
 
-func main() {
-	// Create an instance of the app structure
-	app := NewApp()
+type DummyDB struct{}
 
-	// Create application with options
+func (d *DummyDB) Ping() error {
+	fmt.Println("Псевдо-подключение к базе данных установлено")
+	return nil
+}
+
+func main() {
+	app := NewApp()
+	serverMode := flag.Bool("server", false, "Запуск в серверном режиме")
+	addr := flag.String("addr", "127.0.0.1:8080", "Адрес сервера")
+	flag.Parse()
+
+	db := &DummyDB{}
+	if err := db.Ping(); err != nil {
+		log.Fatal("Ошибка подключения к БД:", err)
+	}
+
+	if *serverMode {
+		fmt.Println("FlexiCRM запущен в SERVER режиме на", *addr)
+		core.StartServer(*addr)
+		return
+	}
+
+	fmt.Println("FlexiCRM запущен в DESKTOP режиме")
+
 	err := wails.Run(&options.App{
-		Title:  "FlexiCRM",
-		Width:  1024,
-		Height: 768,
+		Title:     "FlexiCRM",
+		Width:     1200,
+		Height:    800,
+		OnStartup: app.startup,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
-		BackgroundColour: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
-		OnStartup:        app.startup,
-		Bind: []interface{}{
-			app,
-		},
+		Bind: []interface{}{app},
 	})
-
 	if err != nil {
-		println("Error:", err.Error())
+		log.Fatal(err)
 	}
 }
