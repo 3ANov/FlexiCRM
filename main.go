@@ -1,11 +1,13 @@
 package main
 
 import (
-	"FlexiCRM/internal/core"
+	"FlexiCRM/internal/app"
+	"FlexiCRM/internal/db"
+	"log"
+
 	"embed"
 	"flag"
 	"fmt"
-	"log"
 
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
@@ -15,27 +17,20 @@ import (
 //go:embed frontend/dist
 var assets embed.FS
 
-type DummyDB struct{}
-
-func (d *DummyDB) Ping() error {
-	fmt.Println("Псевдо-подключение к базе данных установлено")
-	return nil
-}
-
 func main() {
-	app := NewApp()
+	desktop := app.NewDesktop()
 	serverMode := flag.Bool("server", false, "Запуск в серверном режиме")
 	addr := flag.String("addr", "127.0.0.1:8080", "Адрес сервера")
 	flag.Parse()
 
-	db := &DummyDB{}
-	if err := db.Ping(); err != nil {
-		log.Fatal("Ошибка подключения к БД:", err)
+	if err := db.Init(); err != nil {
+		log.Fatalf("❌ Ошибка инициализации базы данных: %v", err)
 	}
+	fmt.Println("📦 Подключение к базе данных установлено")
 
 	if *serverMode {
 		fmt.Println("FlexiCRM запущен в SERVER режиме на", *addr)
-		core.StartServer(*addr)
+		app.StartServer(*addr)
 		return
 	}
 
@@ -45,11 +40,11 @@ func main() {
 		Title:     "FlexiCRM",
 		Width:     1200,
 		Height:    800,
-		OnStartup: app.startup,
+		OnStartup: desktop.Startup,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
-		Bind: []interface{}{app},
+		Bind: []interface{}{desktop},
 	})
 	if err != nil {
 		log.Fatal(err)

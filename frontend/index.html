@@ -1,12 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>FlexiCRM</title>
+  <meta charset="UTF-8">
+  <title>FlexiCRM</title>
 </head>
 <body>
-<div id="app"></div>
-<script src="./src/main.js" type="module"></script>
+  <h1>FlexiCRM</h1>
+
+  <div id="auth">
+    <h2>Регистрация</h2>
+    <input id="regUser" placeholder="Имя пользователя" />
+    <input id="regPass" type="password" placeholder="Пароль" />
+    <button id="regBtn">Зарегистрироваться</button>
+
+    <h2>Логин</h2>
+    <input id="loginUser" placeholder="Имя пользователя" />
+    <input id="loginPass" type="password" placeholder="Пароль" />
+    <button id="loginBtn">Войти</button>
+  </div>
+
+  <div id="welcome">
+    <h2>Сообщение:</h2>
+    <p id="message"></p>
+    <button id="updateBtn">Обновить</button>
+  </div>
+
+  <script src="./src/main.js"></script>
 </body>
 </html>

@@ -1,19 +1,28 @@
 package db
 
-import "fmt"
+import (
+	"fmt"
+	"log"
 
-type DummyDB struct{}
+	"FlexiCRM/internal/models"
 
-func (d *DummyDB) Ping() error {
-	fmt.Println("Псевдо-подключение к базе данных установлено")
-	return nil
-}
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
+)
 
-func Connect() (*DummyDB, error) {
-	fmt.Println("Инициализация заглушки вместо реальной БД")
-	db := &DummyDB{}
-	if err := db.Ping(); err != nil {
-		return nil, fmt.Errorf("ошибка инициализации заглушки: %w", err)
+var DB *gorm.DB
+
+func Init() error {
+	var err error
+	DB, err = gorm.Open(sqlite.Open("flexicrm.db"), &gorm.Config{})
+	if err != nil {
+		return fmt.Errorf("ошибка подключения к базе: %w", err)
 	}
-	return db, nil
+
+	if err := DB.AutoMigrate(&models.User{}); err != nil {
+		return fmt.Errorf("ошибка миграции моделей: %w", err)
+	}
+
+	log.Println("✅ Подключение к SQLite успешно установлено")
+	return nil
 }
