@@ -1,0 +1,38 @@
+package bindings
+
+import (
+	"FlexiCRM/internal/models"
+	"FlexiCRM/internal/services"
+)
+
+type NoteBindings struct {
+	service *services.NoteService
+}
+
+func NewNoteBindings(s *services.NoteService) *NoteBindings {
+	return &NoteBindings{service: s}
+}
+
+func (b *NoteBindings) GetAll() ([]models.Note, error) {
+	return b.service.GetAll()
+}
+
+func (b *NoteBindings) GetByID(id uint) (*models.Note, error) {
+	return b.service.GetByID(id)
+}
+
+func (b *NoteBindings) Create(note *models.Note) error {
+	return b.service.Create(note)
+}
+
+func (b *NoteBindings) Update(note *models.Note) error {
+	return b.service.Update(note)
+}
+
+func (b *NoteBindings) Delete(note *models.Note, id uint) error {
+	return b.service.Delete(note, id)
+}
+
+func (b *NoteBindings) Search(query string) ([]models.Note, error) {
+	return b.service.Search(query)
+}

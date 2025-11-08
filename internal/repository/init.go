@@ -3,9 +3,10 @@ package repository
 import "gorm.io/gorm"
 
 type Repositories struct {
-	Users             *UserRepository
+	BaseRepo          *Repository
 	Clients           *ClientRepository
 	Projects          *ProjectRepository
+	Employees         *EmployeeRepository
 	Tasks             *TaskRepository
 	Notes             *NoteRepository
 	Transactions      *TransactionRepository
@@ -17,9 +18,10 @@ func InitRepositories(db *gorm.DB) *Repositories {
 	base := NewRepository(db)
 
 	return &Repositories{
-		Users:             NewUserRepository(base),
+		BaseRepo:          base,
 		Clients:           NewClientRepository(base),
 		Projects:          NewProjectRepository(base),
+		Employees:         NewEmployeeRepository(base),
 		Tasks:             NewTaskRepository(base),
 		Notes:             NewNoteRepository(base),
 		Transactions:      NewTransactionRepository(base),

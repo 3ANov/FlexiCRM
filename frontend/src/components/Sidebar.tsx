@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 
 const links = [
   { to: '/clients', label: 'Клиенты' },
-  { to: '/deals', label: 'Сделки' },
   { to: '/notes', label: 'Заметки' },
 ];
 

@@ -1,0 +1,26 @@
+package services
+
+import (
+	"FlexiCRM/internal/models"
+	"FlexiCRM/internal/repository"
+)
+
+type ProjectService struct {
+	*BaseService
+	Repo *repository.ProjectRepository
+}
+
+func NewProjectService(repo *repository.ProjectRepository, base *BaseService) *ProjectService {
+	return &ProjectService{
+		BaseService: base,
+		Repo:        repo,
+	}
+}
+
+func (s *ProjectService) GetByID(id uint) (*models.Project, error) {
+	return s.Repo.GetByID(id)
+}
+
+func (s *ProjectService) GetAll() ([]models.Project, error) {
+	return s.Repo.GetAll()
+}

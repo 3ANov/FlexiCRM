@@ -7,5 +7,5 @@ type EmployeeDocument struct {
 	EmployeeID int
 	TemplateID int
 	CreatedAt  time.Time
-	Data       map[string]string
+	Data       map[string]string `gorm:"type:json"`
 }

@@ -9,3 +9,15 @@ type Repository struct {
 func NewRepository(db *gorm.DB) *Repository {
 	return &Repository{DB: db}
 }
+
+func (r *Repository) Create(model any) error {
+	return r.DB.Create(model).Error
+}
+
+func (r *Repository) Update(model any) error {
+	return r.DB.Save(model).Error
+}
+
+func (r *Repository) Delete(model any, id uint) error {
+	return r.DB.Delete(model, id).Error
+}

@@ -1,10 +1,12 @@
+import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Clients from './pages/Clients';
-import Deals from './pages/Deals';
+import EditClient from './pages/EditClient';
 import Notes from './pages/Notes';
+import EditNote from './pages/EditNote';
 
-export default function App() {
+const App: React.FC = () => {
   return (
     <div className="flex h-screen bg-gray-100">
       <Sidebar />
@@ -12,10 +14,16 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/clients" />} />
           <Route path="/clients" element={<Clients />} />
-          <Route path="/deals" element={<Deals />} />
+          <Route path="/clients/edit" element={<EditClient />} />
+          <Route path="/clients/edit/:id" element={<EditClient />} />
+
           <Route path="/notes" element={<Notes />} />
+          <Route path="/notes/edit" element={<EditNote />} />
+          <Route path="/notes/edit/:id" element={<EditNote />} />
         </Routes>
       </div>
     </div>
   );
-}
+};
+
+export default App;

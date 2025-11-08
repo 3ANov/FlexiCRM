@@ -7,5 +7,5 @@ type ClientDocument struct {
 	ClientID   int
 	TemplateID int
 	CreatedAt  time.Time
-	Data       map[string]string // подставленные значения
+	Data       map[string]string `gorm:"type:json"`
 }
