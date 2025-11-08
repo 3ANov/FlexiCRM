@@ -6,7 +6,6 @@ import (
 	"log"
 
 	"embed"
-	"flag"
 	"fmt"
 
 	"github.com/wailsapp/wails/v2"
@@ -19,22 +18,10 @@ var assets embed.FS
 
 func main() {
 	desktop := app.NewDesktop()
-	serverMode := flag.Bool("server", false, "Запуск в серверном режиме")
-	addr := flag.String("addr", "127.0.0.1:8080", "Адрес сервера")
-	flag.Parse()
-
 	if err := db.Init(); err != nil {
 		log.Fatalf("❌ Ошибка инициализации базы данных: %v", err)
 	}
 	fmt.Println("📦 Подключение к базе данных установлено")
-
-	if *serverMode {
-		fmt.Println("FlexiCRM запущен в SERVER режиме на", *addr)
-		app.StartServer(*addr)
-		return
-	}
-
-	fmt.Println("FlexiCRM запущен в DESKTOP режиме")
 
 	err := wails.Run(&options.App{
 		Title:     "FlexiCRM",

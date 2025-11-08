@@ -19,7 +19,7 @@ func Init() error {
 		return fmt.Errorf("ошибка подключения к базе: %w", err)
 	}
 
-	if err := DB.AutoMigrate(&models.User{}); err != nil {
+	if err := DB.AutoMigrate(&models.Client{}, &models.Deal{}, &models.Note{}); err != nil {
 		return fmt.Errorf("ошибка миграции моделей: %w", err)
 	}
 
