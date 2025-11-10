@@ -17,7 +17,3 @@ func (s *BaseService) Create(model any) error {
 func (s *BaseService) Update(model any) error {
 	return s.Repo.Update(model)
 }
-
-func (s *BaseService) Delete(model any, id uint) error {
-	return s.Repo.Delete(model, id)
-}

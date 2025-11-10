@@ -33,6 +33,6 @@ func (b *ClientBindings) Update(client *models.Client) error {
 	return b.service.Update(client)
 }
 
-func (b *ClientBindings) Delete(client *models.Client, id uint) error {
-	return b.service.Delete(client, id)
+func (b *ClientBindings) Delete(id uint) error {
+	return b.service.Delete(id)
 }

@@ -24,3 +24,7 @@ func (s *ClientDocumentService) GetByID(id uint) (*models.ClientDocument, error)
 func (s *ClientDocumentService) GetAll() ([]models.ClientDocument, error) {
 	return s.Repo.GetAll()
 }
+
+func (s *ClientDocumentService) Delete(id uint) error {
+	return s.Repo.Delete(&models.ClientDocument{}, id)
+}

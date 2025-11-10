@@ -13,7 +13,6 @@ type Bindings struct {
 	EmployeeDocuments *EmployeeDocumentBindings
 }
 
-// InitBindings создаёт все биндинги для Wails
 func InitBindings(s *services.Services) *Bindings {
 	return &Bindings{
 		Clients:           NewClientBindings(s.Clients),

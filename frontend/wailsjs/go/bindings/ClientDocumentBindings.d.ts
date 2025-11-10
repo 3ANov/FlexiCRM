@@ -4,7 +4,7 @@ import {models} from '../models';
 
 export function Create(arg1:models.ClientDocument):Promise<void>;
 
-export function Delete(arg1:models.ClientDocument,arg2:number):Promise<void>;
+export function Delete(arg1:number):Promise<void>;
 
 export function GetAll():Promise<Array<models.ClientDocument>>;
 

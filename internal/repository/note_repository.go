@@ -2,6 +2,7 @@ package repository
 
 import (
 	"FlexiCRM/internal/models"
+	"fmt"
 )
 
 type NoteRepository struct {
@@ -41,6 +42,9 @@ func (r *NoteRepository) GetByDeal(dealID uint) ([]models.Note, error) {
 
 func (r *NoteRepository) Search(query string) ([]models.Note, error) {
 	var notes []models.Note
-	err := r.DB.Where("content ILIKE ?", "%"+query+"%").Find(&notes).Error
+	pattern := fmt.Sprintf("%%%s%%", query)
+	err := r.DB.
+		Where("LOWER(content) LIKE LOWER(?)", pattern).
+		Find(&notes).Error
 	return notes, err
 }

@@ -4,10 +4,12 @@ import {models} from '../models';
 
 export function Create(arg1:models.Transaction):Promise<void>;
 
-export function Delete(arg1:models.Transaction,arg2:number):Promise<void>;
+export function Delete(arg1:number):Promise<void>;
 
 export function GetAll():Promise<Array<models.Transaction>>;
 
 export function GetByID(arg1:number):Promise<models.Transaction>;
+
+export function Search(arg1:string):Promise<Array<models.Transaction>>;
 
 export function Update(arg1:models.Transaction):Promise<void>;

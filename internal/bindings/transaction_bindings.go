@@ -29,6 +29,10 @@ func (b *TransactionBindings) Update(tx *models.Transaction) error {
 	return b.service.Update(tx)
 }
 
-func (b *TransactionBindings) Delete(tx *models.Transaction, id uint) error {
-	return b.service.Delete(tx, id)
+func (b *TransactionBindings) Delete(id uint) error {
+	return b.service.Delete(id)
+}
+
+func (b *TransactionBindings) Search(query string) ([]models.Transaction, error) {
+	return b.service.Search(query)
 }

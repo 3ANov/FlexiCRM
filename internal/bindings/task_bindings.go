@@ -29,6 +29,6 @@ func (b *TaskBindings) Update(task *models.Task) error {
 	return b.service.Update(task)
 }
 
-func (b *TaskBindings) Delete(task *models.Task, id uint) error {
-	return b.service.Delete(task, id)
+func (b *TaskBindings) Delete(id uint) error {
+	return b.service.Delete(id)
 }

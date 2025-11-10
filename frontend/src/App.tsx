@@ -1,10 +1,18 @@
-import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import Sidebar from './components/Sidebar';
-import Clients from './pages/Clients';
-import EditClient from './pages/EditClient';
-import Notes from './pages/Notes';
-import EditNote from './pages/EditNote';
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Sidebar from "./components/Sidebar";
+
+import ClientList from "./pages/ClientList";
+import ClientEdit from "./pages/ClientEdit";
+
+import NoteList from "./pages/NoteList";
+import NoteEdit from "./pages/NoteEdit";
+
+import ProjectList from "./pages/ProjectList";
+import ProjectEdit from "./pages/ProjectEdit";
+
+import Transactions from "./pages/TransactionList";
+import TransactionEdit from "./pages/TransactionEdit";
 
 const App: React.FC = () => {
   return (
@@ -13,13 +21,18 @@ const App: React.FC = () => {
       <div className="flex-1 p-6 overflow-auto">
         <Routes>
           <Route path="/" element={<Navigate to="/clients" />} />
-          <Route path="/clients" element={<Clients />} />
-          <Route path="/clients/edit" element={<EditClient />} />
-          <Route path="/clients/edit/:id" element={<EditClient />} />
 
-          <Route path="/notes" element={<Notes />} />
-          <Route path="/notes/edit" element={<EditNote />} />
-          <Route path="/notes/edit/:id" element={<EditNote />} />
+          <Route path="/clients" element={<ClientList />} />
+          <Route path="/clients/edit/:id?" element={<ClientEdit />} />
+
+          <Route path="/notes" element={<NoteList />} />
+          <Route path="/notes/edit/:id?" element={<NoteEdit />} />
+
+          <Route path="/projects" element={<ProjectList />} />
+          <Route path="/projects/edit/:id?" element={<ProjectEdit />} />
+
+          <Route path="/transactions" element={<Transactions />} />
+          <Route path="/transactions/edit/:id?" element={<TransactionEdit />} />
         </Routes>
       </div>
     </div>

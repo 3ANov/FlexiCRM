@@ -6,8 +6,8 @@ export function Create(arg1) {
   return window['go']['bindings']['ProjectBindings']['Create'](arg1);
 }
 
-export function Delete(arg1, arg2) {
-  return window['go']['bindings']['ProjectBindings']['Delete'](arg1, arg2);
+export function Delete(arg1) {
+  return window['go']['bindings']['ProjectBindings']['Delete'](arg1);
 }
 
 export function GetAll() {
@@ -16,6 +16,10 @@ export function GetAll() {
 
 export function GetByID(arg1) {
   return window['go']['bindings']['ProjectBindings']['GetByID'](arg1);
+}
+
+export function Search(arg1) {
+  return window['go']['bindings']['ProjectBindings']['Search'](arg1);
 }
 
 export function Update(arg1) {

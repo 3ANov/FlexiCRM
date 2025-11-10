@@ -24,3 +24,7 @@ func (s *TaskService) GetByID(id uint) (*models.Task, error) {
 func (s *TaskService) GetAll() ([]models.Task, error) {
 	return s.Repo.GetAll()
 }
+
+func (s *TaskService) Delete(id uint) error {
+	return s.Repo.Delete(&models.Task{}, id)
+}

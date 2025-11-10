@@ -6,8 +6,8 @@ export function Create(arg1) {
   return window['go']['bindings']['NoteBindings']['Create'](arg1);
 }
 
-export function Delete(arg1, arg2) {
-  return window['go']['bindings']['NoteBindings']['Delete'](arg1, arg2);
+export function Delete(arg1) {
+  return window['go']['bindings']['NoteBindings']['Delete'](arg1);
 }
 
 export function GetAll() {

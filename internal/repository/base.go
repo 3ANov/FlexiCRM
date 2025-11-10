@@ -18,6 +18,6 @@ func (r *Repository) Update(model any) error {
 	return r.DB.Save(model).Error
 }
 
-func (r *Repository) Delete(model any, id uint) error {
-	return r.DB.Delete(model, id).Error
+func (r *Repository) Delete(modelType any, id uint) error {
+	return r.DB.Model(modelType).Delete(modelType, id).Error
 }

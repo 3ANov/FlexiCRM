@@ -4,10 +4,12 @@ import {models} from '../models';
 
 export function Create(arg1:models.Project):Promise<void>;
 
-export function Delete(arg1:models.Project,arg2:number):Promise<void>;
+export function Delete(arg1:number):Promise<void>;
 
 export function GetAll():Promise<Array<models.Project>>;
 
 export function GetByID(arg1:number):Promise<models.Project>;
+
+export function Search(arg1:string):Promise<Array<models.Project>>;
 
 export function Update(arg1:models.Project):Promise<void>;

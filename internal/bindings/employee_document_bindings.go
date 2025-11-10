@@ -29,6 +29,6 @@ func (b *EmployeeDocumentBindings) Update(doc *models.EmployeeDocument) error {
 	return b.service.Update(doc)
 }
 
-func (b *EmployeeDocumentBindings) Delete(doc *models.EmployeeDocument, id uint) error {
-	return b.service.Delete(doc, id)
+func (b *EmployeeDocumentBindings) Delete(id uint) error {
+	return b.service.Delete(id)
 }

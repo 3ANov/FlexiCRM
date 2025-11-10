@@ -29,6 +29,6 @@ func (b *ClientDocumentBindings) Update(doc *models.ClientDocument) error {
 	return b.service.Update(doc)
 }
 
-func (b *ClientDocumentBindings) Delete(doc *models.ClientDocument, id uint) error {
-	return b.service.Delete(doc, id)
+func (b *ClientDocumentBindings) Delete(id uint) error {
+	return b.service.Delete(id)
 }

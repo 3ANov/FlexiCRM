@@ -29,6 +29,6 @@ func (b *EmployeeBindings) Update(emp *models.Employee) error {
 	return b.service.Update(emp)
 }
 
-func (b *EmployeeBindings) Delete(emp *models.Employee, id uint) error {
-	return b.service.Delete(emp, id)
+func (b *EmployeeBindings) Delete(id uint) error {
+	return b.service.Delete(id)
 }

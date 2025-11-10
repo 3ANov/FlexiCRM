@@ -28,3 +28,7 @@ func (s *ClientService) Search(query string) ([]models.Client, error) {
 func (s *ClientService) GetAll() ([]models.Client, error) {
 	return s.Repo.GetAll()
 }
+
+func (s *ClientService) Delete(id uint) error {
+	return s.Repo.Delete(&models.Client{}, id)
+}

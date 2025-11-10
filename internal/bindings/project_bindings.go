@@ -29,6 +29,10 @@ func (b *ProjectBindings) Update(project *models.Project) error {
 	return b.service.Update(project)
 }
 
-func (b *ProjectBindings) Delete(project *models.Project, id uint) error {
-	return b.service.Delete(project, id)
+func (b *ProjectBindings) Delete(id uint) error {
+	return b.service.Delete(id)
+}
+
+func (b *ProjectBindings) Search(query string) ([]models.Project, error) {
+	return b.service.Search(query)
 }

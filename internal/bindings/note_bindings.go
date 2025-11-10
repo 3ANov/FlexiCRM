@@ -29,8 +29,8 @@ func (b *NoteBindings) Update(note *models.Note) error {
 	return b.service.Update(note)
 }
 
-func (b *NoteBindings) Delete(note *models.Note, id uint) error {
-	return b.service.Delete(note, id)
+func (b *NoteBindings) Delete(id uint) error {
+	return b.service.Delete(id)
 }
 
 func (b *NoteBindings) Search(query string) ([]models.Note, error) {

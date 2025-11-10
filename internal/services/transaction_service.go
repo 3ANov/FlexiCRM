@@ -24,3 +24,11 @@ func (s *TransactionService) GetByID(id uint) (*models.Transaction, error) {
 func (s *TransactionService) GetAll() ([]models.Transaction, error) {
 	return s.Repo.GetAll()
 }
+
+func (s *TransactionService) Search(query string) ([]models.Transaction, error) {
+	return s.Repo.Search(query)
+}
+
+func (s *TransactionService) Delete(id uint) error {
+	return s.Repo.Delete(&models.Transaction{}, id)
+}
