@@ -1,4 +1,3 @@
-import React from "react";
 import { NavLink } from "react-router-dom";
 
 const links = [
@@ -6,6 +5,8 @@ const links = [
   { to: "/notes", label: "Заметки" },
   { to: "/projects", label: "Проекты" },
   { to: "/transactions", label: "Транзакции" },
+  { to: "/employees", label: "Сотрудники" },
+  { to: "/tasks", label: "Задачи" },
 ];
 
 export default function Sidebar() {

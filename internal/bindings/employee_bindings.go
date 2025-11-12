@@ -32,3 +32,7 @@ func (b *EmployeeBindings) Update(emp *models.Employee) error {
 func (b *EmployeeBindings) Delete(id uint) error {
 	return b.service.Delete(id)
 }
+
+func (b *EmployeeBindings) Search(query string) ([]models.Employee, error) {
+	return b.service.Search(query)
+}

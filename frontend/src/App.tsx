@@ -11,8 +11,14 @@ import NoteEdit from "./pages/NoteEdit";
 import ProjectList from "./pages/ProjectList";
 import ProjectEdit from "./pages/ProjectEdit";
 
-import Transactions from "./pages/TransactionList";
+import TransactionList from "./pages/TransactionList";
 import TransactionEdit from "./pages/TransactionEdit";
+
+import EmployeeList from "./pages/EmployeeList";
+import EmployeeEdit from "./pages/EmployeeEdit";
+
+import TaskList from "./pages/TaskList";
+import TaskEdit from "./pages/TaskEdit";
 
 const App: React.FC = () => {
   return (
@@ -31,8 +37,14 @@ const App: React.FC = () => {
           <Route path="/projects" element={<ProjectList />} />
           <Route path="/projects/edit/:id?" element={<ProjectEdit />} />
 
-          <Route path="/transactions" element={<Transactions />} />
+          <Route path="/transactions" element={<TransactionList />} />
           <Route path="/transactions/edit/:id?" element={<TransactionEdit />} />
+
+          <Route path="/employees" element={<EmployeeList />} />
+          <Route path="/employees/edit/:id?" element={<EmployeeEdit />} />
+
+          <Route path="/tasks" element={<TaskList />} />
+          <Route path="/tasks/edit/:id?" element={<TaskEdit />} />
         </Routes>
       </div>
     </div>

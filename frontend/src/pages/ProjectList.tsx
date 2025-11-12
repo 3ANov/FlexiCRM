@@ -17,7 +17,7 @@ export default function ProjectList() {
   return (
     <ListPage<Project>
       title="Проекты"
-      headers={["№", "Название", "Клиент", "Статус", "Действия"]}
+      headers={["Название", "Клиент", "Статус", "Действия"]}
       fetchItems={fetchProjects}
       createLink="/projects/edit"
       onDelete={deleteProject}

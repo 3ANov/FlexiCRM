@@ -28,7 +28,7 @@ export default function TransactionList() {
   return (
     <ListPage<Transaction>
       title="Транзакции"
-      headers={["№", "Тип", "Сумма", "Категория", "Дата", "Действия"]}
+      headers={["Тип", "Сумма", "Категория", "Дата", "Действия"]}
       fetchItems={fetchTransactions}
       createLink="/transactions/edit"
       onDelete={deleteTransaction}

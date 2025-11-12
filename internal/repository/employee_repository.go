@@ -35,3 +35,12 @@ func (r *EmployeeRepository) FindByEmail(email string) (*models.Employee, error)
 	}
 	return &employee, nil
 }
+
+func (r *EmployeeRepository) Search(query string) ([]models.Employee, error) {
+	var employees []models.Employee
+	err := r.DB.
+		Where("name LIKE ? OR email LIKE ?",
+			"%"+query+"%", "%"+query+"%").
+		Find(&employees).Error
+	return employees, err
+}

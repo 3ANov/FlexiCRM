@@ -10,4 +10,6 @@ export function GetAll():Promise<Array<models.Employee>>;
 
 export function GetByID(arg1:number):Promise<models.Employee>;
 
+export function Search(arg1:string):Promise<Array<models.Employee>>;
+
 export function Update(arg1:models.Employee):Promise<void>;
