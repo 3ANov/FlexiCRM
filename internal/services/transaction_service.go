@@ -25,8 +25,8 @@ func (s *TransactionService) GetAll() ([]models.Transaction, error) {
 	return s.Repo.GetAll()
 }
 
-func (s *TransactionService) Search(query string) ([]models.Transaction, error) {
-	return s.Repo.Search(query)
+func (s *TransactionService) Search(filters models.TransactionSearch) ([]models.Transaction, error) {
+	return s.Repo.Search(filters)
 }
 
 func (s *TransactionService) Delete(id uint) error {

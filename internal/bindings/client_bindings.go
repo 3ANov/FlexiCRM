@@ -21,8 +21,8 @@ func (b *ClientBindings) GetByID(id uint) (*models.Client, error) {
 	return b.service.GetByID(id)
 }
 
-func (b *ClientBindings) Search(query string) ([]models.Client, error) {
-	return b.service.Search(query)
+func (b *ClientBindings) Search(filters models.ClientSearch) ([]models.Client, error) {
+	return b.service.Search(filters)
 }
 
 func (b *ClientBindings) Create(client *models.Client) error {

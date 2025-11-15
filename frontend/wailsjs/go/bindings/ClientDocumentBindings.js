@@ -18,6 +18,10 @@ export function GetByID(arg1) {
   return window['go']['bindings']['ClientDocumentBindings']['GetByID'](arg1);
 }
 
+export function Search(arg1) {
+  return window['go']['bindings']['ClientDocumentBindings']['Search'](arg1);
+}
+
 export function Update(arg1) {
   return window['go']['bindings']['ClientDocumentBindings']['Update'](arg1);
 }

@@ -25,8 +25,8 @@ func (s *ProjectService) GetAll() ([]models.Project, error) {
 	return s.Repo.GetAll()
 }
 
-func (s *ProjectService) Search(query string) ([]models.Project, error) {
-	return s.Repo.Search(query)
+func (s *ProjectService) Search(filters models.ProjectSearch) ([]models.Project, error) {
+	return s.Repo.Search(filters)
 }
 
 func (s *ProjectService) Delete(id uint) error {

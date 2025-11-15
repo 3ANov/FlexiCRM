@@ -33,6 +33,6 @@ func (b *TransactionBindings) Delete(id uint) error {
 	return b.service.Delete(id)
 }
 
-func (b *TransactionBindings) Search(query string) ([]models.Transaction, error) {
-	return b.service.Search(query)
+func (b *TransactionBindings) Search(filters models.TransactionSearch) ([]models.Transaction, error) {
+	return b.service.Search(filters)
 }

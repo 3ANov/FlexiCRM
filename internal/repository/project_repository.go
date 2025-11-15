@@ -2,7 +2,6 @@ package repository
 
 import (
 	"FlexiCRM/internal/models"
-	"fmt"
 	"strings"
 )
 
@@ -41,15 +40,27 @@ func (r *ProjectRepository) GetByStatus(status string) ([]models.Project, error)
 	return projects, err
 }
 
-func (r *ProjectRepository) Search(query string) ([]models.Project, error) {
-	var projects []models.Project
-	pattern := fmt.Sprintf("%%%s%%", strings.ToLower(query))
-	err := r.DB.
-		Where(`
+func (r *ProjectRepository) Search(filter models.ProjectSearch) ([]models.Project, error) {
+	db := r.DB
+
+	if filter.Query != "" {
+		pattern := "%" + strings.ToLower(filter.Query) + "%"
+		db = db.Where(`
 			LOWER(name) LIKE ? OR
 			LOWER(description) LIKE ? OR
 			LOWER(status) LIKE ?
-		`, pattern, pattern, pattern).
-		Find(&projects).Error
+		`, pattern, pattern, pattern)
+	}
+
+	if filter.ClientID != nil {
+		db = db.Where("client_id = ?", *filter.ClientID)
+	}
+
+	if filter.Status != "" {
+		db = db.Where("status = ?", filter.Status)
+	}
+
+	var projects []models.Project
+	err := db.Find(&projects).Error
 	return projects, err
 }

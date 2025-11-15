@@ -26,13 +26,18 @@ func (r *EmployeeDocumentRepository) GetAll() ([]models.EmployeeDocument, error)
 	return docs, err
 }
 
-func (r *EmployeeDocumentRepository) GetByEmployee(employeeID uint) ([]models.EmployeeDocument, error) {
-	var docs []models.EmployeeDocument
-	if err := r.DB.
-		Where("employee_id = ?", employeeID).
-		Order("created_at DESC").
-		Find(&docs).Error; err != nil {
-		return nil, err
+func (r *EmployeeDocumentRepository) Search(filter models.EmployeeDocumentSearch) ([]models.EmployeeDocument, error) {
+	db := r.DB
+
+	if filter.EmployeeID != nil {
+		db = db.Where("employee_id = ?", *filter.EmployeeID)
 	}
-	return docs, nil
+
+	if filter.TemplateID != nil {
+		db = db.Where("template_id = ?", *filter.TemplateID)
+	}
+
+	var documents []models.EmployeeDocument
+	err := db.Find(&documents).Error
+	return documents, err
 }

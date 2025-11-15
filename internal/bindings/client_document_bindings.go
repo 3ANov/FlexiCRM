@@ -32,3 +32,7 @@ func (b *ClientDocumentBindings) Update(doc *models.ClientDocument) error {
 func (b *ClientDocumentBindings) Delete(id uint) error {
 	return b.service.Delete(id)
 }
+
+func (s *ClientDocumentBindings) Search(filters models.ClientDocumentSearch) ([]models.ClientDocument, error) {
+	return s.service.Search(filters)
+}

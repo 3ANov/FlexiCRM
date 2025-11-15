@@ -2,7 +2,6 @@ package repository
 
 import (
 	"FlexiCRM/internal/models"
-	"fmt"
 	"strings"
 )
 
@@ -41,13 +40,37 @@ func (r *TransactionRepository) GetByCategory(category string) ([]models.Transac
 	return txs, err
 }
 
-func (r *TransactionRepository) Search(query string) ([]models.Transaction, error) {
+func (r *TransactionRepository) Search(filters models.TransactionSearch) ([]models.Transaction, error) {
 	var txs []models.Transaction
-	pattern := fmt.Sprintf("%%%s%%", strings.ToLower(query))
+	db := r.DB
 
-	err := r.DB.
-		Where("LOWER(type) LIKE ? OR LOWER(category) LIKE ? OR LOWER(notes) LIKE ?", pattern, pattern, pattern).
-		Find(&txs).Error
+	if filters.Query != "" {
+		pattern := "%" + strings.ToLower(filters.Query) + "%"
+		db = db.Where(`LOWER(notes) LIKE ?`, pattern)
+	}
 
+	if filters.Type != "" {
+		db = db.Where("type = ?", filters.Type)
+	}
+
+	if filters.Category != "" {
+		db = db.Where("category = ?", filters.Category)
+	}
+
+	if filters.DateFrom != nil {
+		db = db.Where("date >= ?", *filters.DateFrom)
+	}
+	if filters.DateTo != nil {
+		db = db.Where("date <= ?", *filters.DateTo)
+	}
+
+	if filters.MinAmount != nil {
+		db = db.Where("amount >= ?", *filters.MinAmount)
+	}
+	if filters.MaxAmount != nil {
+		db = db.Where("amount <= ?", *filters.MaxAmount)
+	}
+
+	err := db.Find(&txs).Error
 	return txs, err
 }

@@ -18,6 +18,10 @@ export function GetByID(arg1) {
   return window['go']['bindings']['TaskBindings']['GetByID'](arg1);
 }
 
+export function Search(arg1) {
+  return window['go']['bindings']['TaskBindings']['Search'](arg1);
+}
+
 export function Update(arg1) {
   return window['go']['bindings']['TaskBindings']['Update'](arg1);
 }

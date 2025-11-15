@@ -25,8 +25,8 @@ func (s *NoteService) GetAll() ([]models.Note, error) {
 	return s.Repo.GetAll()
 }
 
-func (s *NoteService) Search(query string) ([]models.Note, error) {
-	return s.Repo.Search(query)
+func (s *NoteService) Search(filters models.NoteSearch) ([]models.Note, error) {
+	return s.Repo.Search(filters)
 }
 
 func (s *NoteService) Delete(id uint) error {

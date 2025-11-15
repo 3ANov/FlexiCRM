@@ -33,6 +33,6 @@ func (b *NoteBindings) Delete(id uint) error {
 	return b.service.Delete(id)
 }
 
-func (b *NoteBindings) Search(query string) ([]models.Note, error) {
-	return b.service.Search(query)
+func (b *NoteBindings) Search(filters models.NoteSearch) ([]models.Note, error) {
+	return b.service.Search(filters)
 }

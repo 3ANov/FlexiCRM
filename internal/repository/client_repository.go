@@ -31,11 +31,15 @@ func (r *ClientRepository) GetAll() ([]models.Client, error) {
 	return clients, err
 }
 
-func (r *ClientRepository) Search(query string) ([]models.Client, error) {
+func (r *ClientRepository) Search(filter models.ClientSearch) ([]models.Client, error) {
+	db := r.DB
+
+	if filter.Query != "" {
+		q := "%" + filter.Query + "%"
+		db = db.Where("name LIKE ? OR phone LIKE ? OR email LIKE ?", q, q, q)
+	}
+
 	var clients []models.Client
-	err := r.DB.
-		Where("name LIKE ? OR phone LIKE ? OR email LIKE ?",
-			"%"+query+"%", "%"+query+"%", "%"+query+"%").
-		Find(&clients).Error
+	err := db.Find(&clients).Error
 	return clients, err
 }

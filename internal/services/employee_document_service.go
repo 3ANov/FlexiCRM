@@ -28,3 +28,7 @@ func (s *EmployeeDocumentService) GetAll() ([]models.EmployeeDocument, error) {
 func (s *EmployeeDocumentService) Delete(id uint) error {
 	return s.Repo.Delete(&models.EmployeeDocument{}, id)
 }
+
+func (s *EmployeeDocumentService) Search(filters models.EmployeeDocumentSearch) ([]models.EmployeeDocument, error) {
+	return s.Repo.Search(filters)
+}

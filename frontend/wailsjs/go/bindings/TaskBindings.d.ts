@@ -10,4 +10,6 @@ export function GetAll():Promise<Array<models.Task>>;
 
 export function GetByID(arg1:number):Promise<models.Task>;
 
+export function Search(arg1:models.TaskSearch):Promise<Array<models.Task>>;
+
 export function Update(arg1:models.Task):Promise<void>;

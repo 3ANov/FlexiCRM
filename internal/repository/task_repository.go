@@ -2,6 +2,7 @@ package repository
 
 import (
 	"FlexiCRM/internal/models"
+	"strings"
 )
 
 type TaskRepository struct {
@@ -18,26 +19,40 @@ func (r *TaskRepository) GetByID(id uint) (*models.Task, error) {
 	return &task, err
 }
 
-func (r *TaskRepository) GetByProjectID(projectID uint) ([]models.Task, error) {
-	var tasks []models.Task
-	err := r.DB.Preload("Employee").Where("project_id = ?", projectID).Find(&tasks).Error
-	return tasks, err
-}
-
 func (r *TaskRepository) GetAll() ([]models.Task, error) {
 	var tasks []models.Task
 	err := r.DB.Preload("Employee").Find(&tasks).Error
 	return tasks, err
 }
 
-func (r *TaskRepository) GetByEmployee(employeeID uint) ([]models.Task, error) {
+func (r *TaskRepository) Search(filters models.TaskSearch) ([]models.Task, error) {
 	var tasks []models.Task
-	err := r.DB.Where("assigned_to = ?", employeeID).Find(&tasks).Error
-	return tasks, err
-}
+	db := r.DB
 
-func (r *TaskRepository) GetByStatus(status string) ([]models.Task, error) {
-	var tasks []models.Task
-	err := r.DB.Where("status = ?", status).Find(&tasks).Error
+	if filters.Query != "" {
+		pattern := "%" + strings.ToLower(filters.Query) + "%"
+		db = db.Where(`
+			LOWER(title) LIKE ? OR
+			LOWER(description) LIKE ?
+		`, pattern, pattern)
+	}
+
+	if filters.Status != "" {
+		db = db.Where("status = ?", filters.Status)
+	}
+
+	if filters.AssignedTo != nil {
+		db = db.Where("assigned_to = ?", *filters.AssignedTo)
+	}
+
+	if filters.ProjectID != nil {
+		db = db.Where("project_id = ?", *filters.ProjectID)
+	}
+
+	if filters.Deadline != nil {
+		db = db.Where("deadline <= ?", *filters.Deadline)
+	}
+
+	err := db.Find(&tasks).Error
 	return tasks, err
 }

@@ -28,3 +28,7 @@ func (s *TaskService) GetAll() ([]models.Task, error) {
 func (s *TaskService) Delete(id uint) error {
 	return s.Repo.Delete(&models.Task{}, id)
 }
+
+func (s *TaskService) Search(filters models.TaskSearch) ([]models.Task, error) {
+	return s.Repo.Search(filters)
+}

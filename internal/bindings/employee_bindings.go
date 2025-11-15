@@ -33,6 +33,6 @@ func (b *EmployeeBindings) Delete(id uint) error {
 	return b.service.Delete(id)
 }
 
-func (b *EmployeeBindings) Search(query string) ([]models.Employee, error) {
-	return b.service.Search(query)
+func (b *EmployeeBindings) Search(filters models.EmployeeSearch) ([]models.Employee, error) {
+	return b.service.Search(filters)
 }

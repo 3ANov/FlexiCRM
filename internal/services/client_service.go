@@ -21,8 +21,8 @@ func (s *ClientService) GetByID(id uint) (*models.Client, error) {
 	return s.Repo.GetByID(id)
 }
 
-func (s *ClientService) Search(query string) ([]models.Client, error) {
-	return s.Repo.Search(query)
+func (s *ClientService) Search(filters models.ClientSearch) ([]models.Client, error) {
+	return s.Repo.Search(filters)
 }
 
 func (s *ClientService) GetAll() ([]models.Client, error) {

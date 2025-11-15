@@ -10,4 +10,6 @@ export function GetAll():Promise<Array<models.ClientDocument>>;
 
 export function GetByID(arg1:number):Promise<models.ClientDocument>;
 
+export function Search(arg1:models.ClientDocumentSearch):Promise<Array<models.ClientDocument>>;
+
 export function Update(arg1:models.ClientDocument):Promise<void>;

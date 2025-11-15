@@ -32,3 +32,7 @@ func (b *TaskBindings) Update(task *models.Task) error {
 func (b *TaskBindings) Delete(id uint) error {
 	return b.service.Delete(id)
 }
+
+func (b *TaskBindings) Search(filters models.TaskSearch) ([]models.Task, error) {
+	return b.service.Search(filters)
+}
