@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
-import CreateEditPage, { FieldConfig } from "../components/CreateEditPage";
+import CreateEditPage from "../components/CreateEditPage";
+import { FieldConfig } from "../types/forms";
 import * as ProjectBindings from "../../wailsjs/go/bindings/ProjectBindings";
 import * as ClientBindings from "../../wailsjs/go/bindings/ClientBindings";
 import { models } from "../../wailsjs/go/models";
+import { getStatusOptions } from "../utils/statuses";
 
 type Project = models.Project;
-const statusOptions = [
-  { value: "New", label: "Новый" },
-  { value: "InProgress", label: "В работе" },
-  { value: "Completed", label: "Завершён" },
-];
+const statusOptions = getStatusOptions("project");
 
 export default function ProjectEdit() {
   const [clients, setClients] = useState<models.Client[]>([]);

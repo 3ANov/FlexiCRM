@@ -54,7 +54,8 @@ func (r *TransactionRepository) Search(filters models.TransactionSearch) ([]mode
 	}
 
 	if filters.Category != "" {
-		db = db.Where("category = ?", filters.Category)
+		pattern := "%" + strings.ToLower(filters.Category) + "%"
+		db = db.Where("LOWER(category) LIKE ?", pattern)
 	}
 
 	if filters.DateFrom != nil {

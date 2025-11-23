@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
-export interface FieldConfig<T> {
-  name: keyof T;
-  label: string;
-  type: "text" | "textarea" | "select" | "number" | "checkbox" | "date";
-  options?: { value: string | number; label: string }[];
-}
+import { FieldConfig } from "../types/forms";
 
 interface CreateEditPageProps<T> {
   title: string;
@@ -18,7 +12,7 @@ interface CreateEditPageProps<T> {
   listRoute: string;
 }
 
-export default function CreateEditPage<T>({
+export default function CreateEditPage<T extends object>({
   title,
   fetchById,
   create,
@@ -33,13 +27,11 @@ export default function CreateEditPage<T>({
   const [obj, setObj] = useState<T>(initialValue);
   const [loading, setLoading] = useState(false);
 
-  const getFieldConfig = (field: keyof T) =>
-    fields.find((f) => f.name === field);
-
   const getValue = (val: unknown) => {
     if (val === undefined || val === null) return "";
     if (val === 0) return "";
     if (val instanceof Date) return val.toISOString().substring(0, 10);
+    if (typeof val === "string" && val.includes("T")) return val.substring(0, 10);
     return String(val);
   };
 
@@ -55,10 +47,17 @@ export default function CreateEditPage<T>({
     }
   }, [id, fetchById, initialValue, isEditing]);
 
-  const handleChange = (field: keyof T, value: any, type: string) => {
-    let processedValue: string | number | boolean = value;
+  const handleChange = (field: keyof T, value: any, type: FieldConfig<T>["type"]) => {
+    let processedValue: any = value;
 
-    if (type === "number" || type === "select") {
+    const fieldConfig = fields.find(f => f.name === field);
+    const isNumericSelect =
+      type === "select" &&
+      fieldConfig?.options?.every(
+        o => typeof o.value === "number" || (typeof o.value === "string" && !isNaN(Number(o.value)) && o.value !== "")
+      );
+
+    if (type === "number" || isNumericSelect) {
       if (value === "" || value === undefined || value === null) {
         processedValue = 0;
       } else {
@@ -97,13 +96,9 @@ export default function CreateEditPage<T>({
         return (
           <div
             key={String(f.name)}
-            className={`mb-4 ${
-              f.type === "checkbox" ? "flex items-center" : ""
-            }`}
+            className={`mb-4 ${f.type === "checkbox" ? "flex items-center" : ""}`}
           >
-            {f.type !== "checkbox" && (
-              <label className="block mb-1">{f.label}</label>
-            )}
+            {f.type !== "checkbox" && <label className="block mb-1">{f.label}</label>}
 
             {f.type === "textarea" ? (
               <textarea
@@ -111,7 +106,7 @@ export default function CreateEditPage<T>({
                 onChange={(e) => handleChange(f.name, e.target.value, f.type)}
                 className="w-full border p-2 rounded"
               />
-            ) : f.type === "select" ? (
+            ) : f.type === "select" || f.type === "boolean" ? (
               <select
                 value={displayValue}
                 onChange={(e) => handleChange(f.name, e.target.value, f.type)}

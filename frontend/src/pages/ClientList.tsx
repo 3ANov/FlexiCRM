@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import ListPage from "../components/ListPage";
-import { FieldConfig } from "../components/CreateEditPage";
+import { FieldConfig } from "../types/forms";
 
 import * as ClientBindings from "../../wailsjs/go/bindings/ClientBindings";
 import { models } from "../../wailsjs/go/models";

@@ -15,13 +15,13 @@ func NewTaskRepository(r *Repository) *TaskRepository {
 
 func (r *TaskRepository) GetByID(id uint) (*models.Task, error) {
 	var task models.Task
-	err := r.DB.Preload("Employee").First(&task, id).Error
+	err := r.DB.First(&task, id).Error
 	return &task, err
 }
 
 func (r *TaskRepository) GetAll() ([]models.Task, error) {
 	var tasks []models.Task
-	err := r.DB.Preload("Employee").Find(&tasks).Error
+	err := r.DB.Find(&tasks).Error
 	return tasks, err
 }
 

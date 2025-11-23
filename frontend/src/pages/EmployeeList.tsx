@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import ListPage from "../components/ListPage";
-import { FieldConfig } from "../components/CreateEditPage";
+import { FieldConfig } from "../types/forms";
 import * as EmployeeBindings from "../../wailsjs/go/bindings/EmployeeBindings";
 import { models } from "../../wailsjs/go/models";
 
@@ -35,7 +35,7 @@ export default function EmployeeList() {
     {
       name: "active",
       label: "Активность",
-      type: "select",
+      type: "boolean",
       options: activeOptions,
     },
   ];
@@ -43,7 +43,7 @@ export default function EmployeeList() {
   const initialSearch: EmployeeSearch = {
     query: "",
     active: undefined,
-  };
+  } as EmployeeSearch;
 
   return (
     <ListPage<Employee, EmployeeSearch>

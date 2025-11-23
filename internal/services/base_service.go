@@ -1,6 +1,8 @@
 package services
 
-import "FlexiCRM/internal/repository"
+import (
+	"FlexiCRM/internal/repository"
+)
 
 type BaseService struct {
 	Repo *repository.Repository
