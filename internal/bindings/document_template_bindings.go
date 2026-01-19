@@ -67,3 +67,7 @@ func (b *DocumentTemplateBindings) PickAndScanTemplate() (*models.ScanResult, er
 		Keys:     keys,
 	}, nil
 }
+
+func (b *DocumentTemplateBindings) Search(filters models.DocumentTemplateSearch) ([]models.DocumentTemplate, error) {
+	return b.service.Search(filters)
+}

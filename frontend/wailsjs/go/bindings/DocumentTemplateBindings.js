@@ -26,6 +26,10 @@ export function PickAndScanTemplate() {
   return window['go']['bindings']['DocumentTemplateBindings']['PickAndScanTemplate']();
 }
 
+export function Search(arg1) {
+  return window['go']['bindings']['DocumentTemplateBindings']['Search'](arg1);
+}
+
 export function SetContext(arg1) {
   return window['go']['bindings']['DocumentTemplateBindings']['SetContext'](arg1);
 }

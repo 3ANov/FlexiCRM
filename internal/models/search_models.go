@@ -50,3 +50,7 @@ type EmployeeDocumentSearch struct {
 	EmployeeID *int `json:"employee_id,omitempty"`
 	TemplateID *int `json:"template_id,omitempty"`
 }
+
+type DocumentTemplateSearch struct {
+	Query string `json:"query,omitempty"`
+}

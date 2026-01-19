@@ -20,7 +20,7 @@ export default function EmployeeEdit() {
   const employeeFields: FieldConfig<Employee>[] = [
     { name: "Name", label: "Имя", type: "text" },
     { name: "Role", label: "Должность", type: "text" },
-    { name: "Email", label: "Email", type: "text" },
+    { name: "Email", label: "Email", type: "email" },
     { name: "Phone", label: "Телефон", type: "text" },
     { name: "Active", label: "Активный", type: "checkbox" },
   ];

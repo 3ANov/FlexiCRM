@@ -21,6 +21,19 @@ func (r *DocumentTemplateRepository) GetByID(id uint) (*models.DocumentTemplate,
 	return &template, nil
 }
 
+func (r *DocumentTemplateRepository) Search(criteria models.DocumentTemplateSearch) ([]models.DocumentTemplate, error) {
+	var templates []models.DocumentTemplate
+	query := r.DB.Model(&models.DocumentTemplate{})
+
+	if criteria.Query != "" {
+		searchTerm := "%" + criteria.Query + "%"
+		query = query.Where("name LIKE ? OR file_name LIKE ?", searchTerm, searchTerm)
+	}
+
+	err := query.Find(&templates).Error
+	return templates, err
+}
+
 func (r *DocumentTemplateRepository) GetAll() ([]models.DocumentTemplate, error) {
 	var templates []models.DocumentTemplate
 	err := r.DB.Find(&templates).Error

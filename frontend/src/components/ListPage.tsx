@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import SearchForm from "./SearchForm";
-import { FieldConfig } from "./CreateEditPage";
+import { FieldConfig } from "../types/forms";
+
 
 interface ListPageProps<T, S> {
   title: string;

@@ -24,7 +24,7 @@ export default function ClientEdit() {
       fields={[
         { name: "Name", label: "Имя", type: "text" },
         { name: "Phone", label: "Телефон", type: "text" },
-        { name: "Email", label: "Email", type: "text" },
+        { name: "Email", label: "Email", type: "email" },
         { name: "Description", label: "Описание", type: "textarea" },
       ]}
     />

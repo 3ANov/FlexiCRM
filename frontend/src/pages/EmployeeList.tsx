@@ -76,7 +76,7 @@ export default function EmployeeList() {
                 className="text-indigo-600 hover:text-indigo-800 flex items-center bg-indigo-50 px-2 py-1 rounded border border-indigo-100 transition shadow-sm"
                 title="Документы сотрудника"
               >
-                <span className="mr-1">📄</span>
+                <span className="mr-1">📁</span>
               </Link>
               <Link
                 to={`/employees/edit/${e.ID}`}

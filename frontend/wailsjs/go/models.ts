@@ -310,6 +310,18 @@ export namespace models {
 	    }
 	}
 	
+	export class DocumentTemplateSearch {
+	    query?: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new DocumentTemplateSearch(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.query = source["query"];
+	    }
+	}
 	export class Employee {
 	    ID: number;
 	    Name: string;

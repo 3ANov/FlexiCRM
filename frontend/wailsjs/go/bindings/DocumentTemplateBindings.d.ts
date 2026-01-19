@@ -15,6 +15,8 @@ export function GetByID(arg1:number):Promise<models.DocumentTemplate>;
 
 export function PickAndScanTemplate():Promise<models.ScanResult>;
 
+export function Search(arg1:models.DocumentTemplateSearch):Promise<Array<models.DocumentTemplate>>;
+
 export function SetContext(arg1:context.Context):Promise<void>;
 
 export function Update(arg1:models.DocumentTemplate):Promise<void>;

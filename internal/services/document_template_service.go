@@ -34,6 +34,10 @@ func (s *DocumentTemplateService) GetByID(id uint) (*models.DocumentTemplate, er
 	return s.Repo.GetByID(id)
 }
 
+func (s *DocumentTemplateService) Search(filters models.DocumentTemplateSearch) ([]models.DocumentTemplate, error) {
+	return s.Repo.Search(filters)
+}
+
 func (s *DocumentTemplateService) GetAll() ([]models.DocumentTemplate, error) {
 	return s.Repo.GetAll()
 }
