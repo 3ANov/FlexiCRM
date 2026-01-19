@@ -1,19 +1,36 @@
-# README
+# FlexiCRM
 
 ## About
 
-This is the official Wails Vanilla template.
+FlexiCRM — это CRM-система, созданная с использованием **Wails**, которая объединяет Go-бэкенд и фронтенд на **React + Vite**.   
+В качестве базы данных используется **SQLite**.  
 
-You can configure the project by editing `wails.json`. More information about the project settings can be found
-here: https://wails.io/docs/reference/project-config
+Проект использует Wails для интеграции фронтенда и бэкенда, что позволяет вызывать Go-методы прямо из интерфейса.
+
+## Project Structure
+
+- `frontend/` — фронтенд на Vite (HTML, CSS, JS)
+- `internal/` — Go-код бизнес-логики и работы с SQLite
+- `wails.json` — конфигурация проекта Wails  
+
+Документацию по настройке проекта можно найти здесь:  
+https://wails.io/docs/reference/project-config
+
+
+Перед запуском проекта убедитесь, что на системе установлены:
+
+- [Go](https://go.dev/doc/install) версии 1.20+  
+- [Node.js](https://nodejs.org/) версии 18+  
+- [Wails](https://wails.io/docs/gettingstarted/installation)
+
+Установить Wails можно через Go:
+
+```bash
+go install github.com/wailsapp/wails/v2/cmd/wails@latest
 
 ## Live Development
 
-To run in live development mode, run `wails dev` in the project directory. This will run a Vite development
-server that will provide very fast hot reload of your frontend changes. If you want to develop in a browser
-and have access to your Go methods, there is also a dev server that runs on http://localhost:34115. Connect
-to this in your browser, and you can call your Go code from devtools.
+Для запуска проекта в режиме разработки с горячей перезагрузкой используйте:
 
-## Building
-
-To build a redistributable, production mode package, use `wails build`.
+# Запуск проекта
+wails dev
