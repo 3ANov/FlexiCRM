@@ -1,12 +1,70 @@
 export namespace models {
 	
-	export class ClientDocument {
+	export class TemplateField {
+	    key: string;
+	    label: string;
+	    type: string;
+	    required: boolean;
+	
+	    static createFrom(source: any = {}) {
+	        return new TemplateField(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.key = source["key"];
+	        this.label = source["label"];
+	        this.type = source["type"];
+	        this.required = source["required"];
+	    }
+	}
+	export class DocumentTemplate {
 	    ID: number;
-	    ClientID: number;
-	    TemplateID: number;
+	    Name: string;
+	    FileName: string;
+	    Fields: TemplateField[];
 	    // Go type: time
 	    CreatedAt: any;
+	
+	    static createFrom(source: any = {}) {
+	        return new DocumentTemplate(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.ID = source["ID"];
+	        this.Name = source["Name"];
+	        this.FileName = source["FileName"];
+	        this.Fields = this.convertValues(source["Fields"], TemplateField);
+	        this.CreatedAt = this.convertValues(source["CreatedAt"], null);
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	export class ClientDocument {
+	    ID: number;
+	    TemplateID: number;
+	    Template: DocumentTemplate;
 	    Data: Record<string, string>;
+	    // Go type: time
+	    CreatedAt: any;
+	    ClientID: number;
 	
 	    static createFrom(source: any = {}) {
 	        return new ClientDocument(source);
@@ -15,10 +73,11 @@ export namespace models {
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.ID = source["ID"];
-	        this.ClientID = source["ClientID"];
 	        this.TemplateID = source["TemplateID"];
-	        this.CreatedAt = this.convertValues(source["CreatedAt"], null);
+	        this.Template = this.convertValues(source["Template"], DocumentTemplate);
 	        this.Data = source["Data"];
+	        this.CreatedAt = this.convertValues(source["CreatedAt"], null);
+	        this.ClientID = source["ClientID"];
 	    }
 	
 		convertValues(a: any, classs: any, asMap: boolean = false): any {
@@ -250,6 +309,7 @@ export namespace models {
 	        this.query = source["query"];
 	    }
 	}
+	
 	export class Employee {
 	    ID: number;
 	    Name: string;
@@ -298,11 +358,12 @@ export namespace models {
 	}
 	export class EmployeeDocument {
 	    ID: number;
-	    EmployeeID: number;
 	    TemplateID: number;
+	    Template: DocumentTemplate;
+	    Data: Record<string, string>;
 	    // Go type: time
 	    CreatedAt: any;
-	    Data: Record<string, string>;
+	    EmployeeID: number;
 	
 	    static createFrom(source: any = {}) {
 	        return new EmployeeDocument(source);
@@ -311,10 +372,11 @@ export namespace models {
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.ID = source["ID"];
-	        this.EmployeeID = source["EmployeeID"];
 	        this.TemplateID = source["TemplateID"];
-	        this.CreatedAt = this.convertValues(source["CreatedAt"], null);
+	        this.Template = this.convertValues(source["Template"], DocumentTemplate);
 	        this.Data = source["Data"];
+	        this.CreatedAt = this.convertValues(source["CreatedAt"], null);
+	        this.EmployeeID = source["EmployeeID"];
 	    }
 	
 		convertValues(a: any, classs: any, asMap: boolean = false): any {
@@ -397,6 +459,20 @@ export namespace models {
 	        this.status = source["status"];
 	    }
 	}
+	export class ScanResult {
+	    FilePath: string;
+	    Keys: string[];
+	
+	    static createFrom(source: any = {}) {
+	        return new ScanResult(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.FilePath = source["FilePath"];
+	        this.Keys = source["Keys"];
+	    }
+	}
 	
 	export class TaskSearch {
 	    query?: string;
@@ -437,6 +513,7 @@ export namespace models {
 		    return a;
 		}
 	}
+	
 	export class Transaction {
 	    ID: number;
 	    Type: string;

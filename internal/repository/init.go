@@ -12,6 +12,7 @@ type Repositories struct {
 	Transactions      *TransactionRepository
 	ClientDocuments   *ClientDocumentRepository
 	EmployeeDocuments *EmployeeDocumentRepository
+	DocumentTemplates *DocumentTemplateRepository
 }
 
 func InitRepositories(db *gorm.DB) *Repositories {
@@ -27,5 +28,6 @@ func InitRepositories(db *gorm.DB) *Repositories {
 		Transactions:      NewTransactionRepository(base),
 		ClientDocuments:   NewClientDocumentRepository(base),
 		EmployeeDocuments: NewEmployeeDocumentRepository(base),
+		DocumentTemplates: NewDocumentTemplateRepository(base),
 	}
 }

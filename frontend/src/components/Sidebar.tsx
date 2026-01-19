@@ -7,6 +7,7 @@ const links = [
   { to: "/transactions", label: "Транзакции" },
   { to: "/employees", label: "Сотрудники" },
   { to: "/tasks", label: "Задачи" },
+  { to: "/templates", label: "Шаблоны" },
 ];
 
 export default function Sidebar() {

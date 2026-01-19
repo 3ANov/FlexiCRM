@@ -45,6 +45,13 @@ export default function ClientList() {
           <td className="p-2 w-32 text-right">
             <div className="flex justify-end space-x-2">
               <Link
+                to={`/clients/${c.ID}/documents`}
+                className="text-indigo-600 hover:text-indigo-800 flex items-center bg-indigo-50 px-2 py-1 rounded border border-indigo-100 transition shadow-sm"
+                title="Документы клиента"
+              >
+                <span className="mr-1">📁</span>
+              </Link>
+              <Link
                 to={`/clients/edit/${c.ID}`}
                 className="text-blue-500 hover:text-blue-700"
                 title="Редактировать"

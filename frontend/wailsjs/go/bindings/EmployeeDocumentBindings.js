@@ -10,16 +10,36 @@ export function Delete(arg1) {
   return window['go']['bindings']['EmployeeDocumentBindings']['Delete'](arg1);
 }
 
+export function DownloadDocument(arg1) {
+  return window['go']['bindings']['EmployeeDocumentBindings']['DownloadDocument'](arg1);
+}
+
+export function GenerateAndSave(arg1) {
+  return window['go']['bindings']['EmployeeDocumentBindings']['GenerateAndSave'](arg1);
+}
+
 export function GetAll() {
   return window['go']['bindings']['EmployeeDocumentBindings']['GetAll']();
+}
+
+export function GetByEmployeeID(arg1) {
+  return window['go']['bindings']['EmployeeDocumentBindings']['GetByEmployeeID'](arg1);
 }
 
 export function GetByID(arg1) {
   return window['go']['bindings']['EmployeeDocumentBindings']['GetByID'](arg1);
 }
 
+export function Save(arg1) {
+  return window['go']['bindings']['EmployeeDocumentBindings']['Save'](arg1);
+}
+
 export function Search(arg1) {
   return window['go']['bindings']['EmployeeDocumentBindings']['Search'](arg1);
+}
+
+export function SetContext(arg1) {
+  return window['go']['bindings']['EmployeeDocumentBindings']['SetContext'](arg1);
 }
 
 export function Update(arg1) {

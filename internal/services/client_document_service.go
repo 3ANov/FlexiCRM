@@ -7,13 +7,19 @@ import (
 
 type ClientDocumentService struct {
 	*BaseService
-	Repo *repository.ClientDocumentRepository
+	Repo            *repository.ClientDocumentRepository
+	TemplateService *DocumentTemplateService
 }
 
-func NewClientDocumentService(repo *repository.ClientDocumentRepository, base *BaseService) *ClientDocumentService {
+func NewClientDocumentService(
+	repo *repository.ClientDocumentRepository,
+	tmplService *DocumentTemplateService,
+	base *BaseService,
+) *ClientDocumentService {
 	return &ClientDocumentService{
-		BaseService: base,
-		Repo:        repo,
+		BaseService:     base,
+		Repo:            repo,
+		TemplateService: tmplService,
 	}
 }
 
@@ -31,4 +37,17 @@ func (s *ClientDocumentService) Delete(id uint) error {
 
 func (s *ClientDocumentService) Search(filters models.ClientDocumentSearch) ([]models.ClientDocument, error) {
 	return s.Repo.Search(filters)
+}
+
+func (s *ClientDocumentService) GenerateFile(docID uint) ([]byte, string, error) {
+	doc, err := s.Repo.GetByID(docID)
+	if err != nil {
+		return nil, "", err
+	}
+
+	return s.TemplateService.RenderById(uint(doc.TemplateID), doc.Data)
+}
+
+func (s *ClientDocumentService) GetByClientID(empID uint) ([]models.ClientDocument, error) {
+	return s.Repo.GetByClientID(empID)
 }

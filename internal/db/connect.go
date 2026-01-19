@@ -12,9 +12,9 @@ import (
 
 var DB *gorm.DB
 
-func Init() error {
+func Init(dbPath string) error {
 	var err error
-	DB, err = gorm.Open(sqlite.Open("flexicrm.db"), &gorm.Config{})
+	DB, err = gorm.Open(sqlite.Open(dbPath), &gorm.Config{})
 	if err != nil {
 		return fmt.Errorf("ошибка подключения к базе: %w", err)
 	}
@@ -28,6 +28,7 @@ func Init() error {
 		&models.Transaction{},
 		&models.ClientDocument{},
 		&models.EmployeeDocument{},
+		&models.DocumentTemplate{},
 	); err != nil {
 		return fmt.Errorf("ошибка миграции моделей: %w", err)
 	}

@@ -39,3 +39,12 @@ func (r *ClientDocumentRepository) Search(filter models.ClientDocumentSearch) ([
 	err := db.Find(&documents).Error
 	return documents, err
 }
+
+func (r *ClientDocumentRepository) GetByClientID(clientID uint) ([]models.ClientDocument, error) {
+	var docs []models.ClientDocument
+	err := r.DB.Preload("Template").
+		Where("client_id = ?", clientID).
+		Order("created_at DESC").
+		Find(&docs).Error
+	return docs, err
+}

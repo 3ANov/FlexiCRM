@@ -41,3 +41,14 @@ func (r *EmployeeDocumentRepository) Search(filter models.EmployeeDocumentSearch
 	err := db.Find(&documents).Error
 	return documents, err
 }
+
+func (r *EmployeeDocumentRepository) GetByEmployeeID(empID uint) ([]models.EmployeeDocument, error) {
+	var docs []models.EmployeeDocument
+
+	err := r.DB.Preload("Template").
+		Where("employee_id = ?", empID).
+		Order("created_at DESC").
+		Find(&docs).Error
+
+	return docs, err
+}

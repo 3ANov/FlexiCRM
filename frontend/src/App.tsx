@@ -20,6 +20,13 @@ import EmployeeEdit from "./pages/EmployeeEdit";
 import TaskList from "./pages/TaskList";
 import TaskEdit from "./pages/TaskEdit";
 
+import TemplateList from "./pages/TemplateList";
+import TemplateEdit from "./pages/TemplateEdit";
+import EmployeeDocumentList from "./pages/EmployeeDocumentList";
+import EmployeeDocumentEdit from "./pages/EmployeeDocumentEdit";
+import ClientDocumentList from "./pages/ClientDocumentList";
+import ClientDocumentEdit from "./pages/ClientDocumentEdit";
+
 const App: React.FC = () => {
   return (
     <div className="flex h-screen bg-gray-100">
@@ -30,6 +37,8 @@ const App: React.FC = () => {
 
           <Route path="/clients" element={<ClientList />} />
           <Route path="/clients/edit/:id?" element={<ClientEdit />} />
+          <Route path="/clients/:clientId/documents" element={<ClientDocumentList />} />
+          <Route path="/clients/:clientId/documents/edit/:id" element={<ClientDocumentEdit />} />
 
           <Route path="/notes" element={<NoteList />} />
           <Route path="/notes/edit/:id?" element={<NoteEdit />} />
@@ -42,9 +51,14 @@ const App: React.FC = () => {
 
           <Route path="/employees" element={<EmployeeList />} />
           <Route path="/employees/edit/:id?" element={<EmployeeEdit />} />
+          <Route path="/employees/:employeeId/documents" element={<EmployeeDocumentList />} />
+          <Route path="/employees/:employeeId/documents/edit/:id" element={<EmployeeDocumentEdit />} />
 
           <Route path="/tasks" element={<TaskList />} />
           <Route path="/tasks/edit/:id?" element={<TaskEdit />} />
+
+          <Route path="/templates" element={<TemplateList />} />
+          <Route path="/templates/edit/:id?" element={<TemplateEdit />} />
         </Routes>
       </div>
     </div>
