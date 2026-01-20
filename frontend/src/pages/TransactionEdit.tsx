@@ -28,7 +28,7 @@ export default function TransactionEdit() {
     { name: "Amount", label: "Сумма", type: "number" },
     { name: "Category", label: "Категория", type: "text" },
     { name: "Notes", label: "Заметки", type: "textarea" },
-    { name: "Date", label: "Дата", type: "date" },
+    { name: "Date", label: "Дата", type: "datetime-local" },
   ];
 
   return (

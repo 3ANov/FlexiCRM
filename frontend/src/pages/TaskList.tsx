@@ -92,7 +92,7 @@ export default function TaskList() {
         ...projects.map((p) => ({ value: p.ID, label: p.Name })),
       ],
     },
-    { name: "deadline", label: "Срок до", type: "date" },
+    { name: "deadline", label: "Срок до", type: "datetime-local" },
   ];
 
   const initialSearch: TaskSearch = {

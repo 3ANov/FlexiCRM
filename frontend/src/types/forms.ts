@@ -5,7 +5,8 @@ export type FieldType =
   | "select"
   | "number"
   | "checkbox"
-  | "date"
+  | "datetime-local"
+  | "date" 
   | "boolean";
 
 export interface FieldConfig<T> {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { validateObject, ValidationErrors } from "../utils/validation";
 import { FieldConfig } from "../types/forms";
@@ -30,10 +30,19 @@ export default function CreateEditPage<T extends object>({
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<ValidationErrors>({});
 
-  const getValue = (val: unknown) => {
-    if (val === undefined || val === null) return "";
-    if (val === 0) return "";
-    if (val instanceof Date) return val.toISOString().substring(0, 10);
+  const getValue = (val: unknown, type: string) => {
+    if (val === undefined || val === null || val === 0) return "";
+
+    if (type === "date" || type === "datetime-local") {
+      const date = new Date(val as string | Date);
+      if (isNaN(date.getTime())) return "";
+
+      const localISO = date.toLocaleString("sv-SE").replace(" ", "T");
+
+      if (type === "datetime-local") return localISO.substring(0, 16);
+      return localISO.substring(0, 10);
+    }
+
     return String(val);
   };
 
@@ -47,7 +56,7 @@ export default function CreateEditPage<T extends object>({
     } else {
       setObj(initialValue);
     }
-  }, [id, fetchById, initialValue, isEditing]);
+  }, [id, isEditing]);
 
   const handleChange = (field: keyof T, value: any, type: string) => {
     if (errors[field as string]) {
@@ -59,10 +68,14 @@ export default function CreateEditPage<T extends object>({
     }
 
     let processedValue: any = value;
-    if (type === "number" || type === "select") {
+
+    if (type === "number") {
       processedValue = value === "" ? 0 : Number(value);
+    } else if (type === "select") {
+      const num = Number(value);
+      processedValue = value !== "" && !isNaN(num) ? num : value;
     } else if (type === "checkbox") {
-      processedValue = (value as HTMLInputElement).checked;
+      processedValue = Boolean(value);
     }
 
     setObj((prev) => ({ ...prev, [field]: processedValue }) as T);
@@ -70,19 +83,30 @@ export default function CreateEditPage<T extends object>({
 
   const handleSubmit = async () => {
     const validationErrors = validateObject(obj, fields);
-
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
 
+    const dataToSend = { ...obj };
+
+    fields.forEach((f) => {
+      const value = (dataToSend as any)[f.name];
+      if ((f.type === "date" || f.type === "datetime-local") && value) {
+        const date = new Date(value);
+        if (!isNaN(date.getTime())) {
+          (dataToSend as any)[f.name] = date;
+        }
+      }
+    });
+
     try {
-      if (isEditing) await update(obj);
-      else await create(obj);
+      if (isEditing) await update(dataToSend);
+      else await create(dataToSend);
       navigate(listRoute);
     } catch (err) {
       console.error(err);
-      alert("Ошибка при сохранении данных");
+      alert("Ошибка сохранения");
     }
   };
 
@@ -100,7 +124,7 @@ export default function CreateEditPage<T extends object>({
 
       {fields.map((f) => {
         const currentValue = (obj as any)[f.name];
-        const displayValue = getValue(currentValue);
+        const displayValue = getValue(currentValue, f.type);
         const fieldError = errors[f.name as string];
 
         return (
@@ -149,7 +173,9 @@ export default function CreateEditPage<T extends object>({
                     type="checkbox"
                     id={String(f.name)}
                     checked={!!currentValue}
-                    onChange={(e) => handleChange(f.name, e.target, f.type)}
+                    onChange={(e) =>
+                      handleChange(f.name, e.target.checked, f.type)
+                    }
                     className="mr-2 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                   />
                   <label

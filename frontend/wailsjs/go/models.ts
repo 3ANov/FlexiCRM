@@ -137,12 +137,60 @@ export namespace models {
 		    return a;
 		}
 	}
+	export class Employee {
+	    ID: number;
+	    Name: string;
+	    Role: string;
+	    Email: string;
+	    Phone: string;
+	    Active: boolean;
+	    // Go type: time
+	    CreatedAt: any;
+	    // Go type: time
+	    UpdatedAt: any;
+	
+	    static createFrom(source: any = {}) {
+	        return new Employee(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.ID = source["ID"];
+	        this.Name = source["Name"];
+	        this.Role = source["Role"];
+	        this.Email = source["Email"];
+	        this.Phone = source["Phone"];
+	        this.Active = source["Active"];
+	        this.CreatedAt = this.convertValues(source["CreatedAt"], null);
+	        this.UpdatedAt = this.convertValues(source["UpdatedAt"], null);
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
 	export class Task {
 	    ID: number;
 	    Title: string;
 	    Description: string;
 	    AssignedTo: number;
+	    Employee: Employee;
 	    ProjectID: number;
+	    Project: Project;
 	    Status: string;
 	    // Go type: time
 	    Deadline: any;
@@ -161,7 +209,9 @@ export namespace models {
 	        this.Title = source["Title"];
 	        this.Description = source["Description"];
 	        this.AssignedTo = source["AssignedTo"];
+	        this.Employee = this.convertValues(source["Employee"], Employee);
 	        this.ProjectID = source["ProjectID"];
+	        this.Project = this.convertValues(source["Project"], Project);
 	        this.Status = source["Status"];
 	        this.Deadline = this.convertValues(source["Deadline"], null);
 	        this.CreatedAt = this.convertValues(source["CreatedAt"], null);
@@ -322,52 +372,7 @@ export namespace models {
 	        this.query = source["query"];
 	    }
 	}
-	export class Employee {
-	    ID: number;
-	    Name: string;
-	    Role: string;
-	    Email: string;
-	    Phone: string;
-	    Active: boolean;
-	    // Go type: time
-	    CreatedAt: any;
-	    // Go type: time
-	    UpdatedAt: any;
 	
-	    static createFrom(source: any = {}) {
-	        return new Employee(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.ID = source["ID"];
-	        this.Name = source["Name"];
-	        this.Role = source["Role"];
-	        this.Email = source["Email"];
-	        this.Phone = source["Phone"];
-	        this.Active = source["Active"];
-	        this.CreatedAt = this.convertValues(source["CreatedAt"], null);
-	        this.UpdatedAt = this.convertValues(source["UpdatedAt"], null);
-	    }
-	
-		convertValues(a: any, classs: any, asMap: boolean = false): any {
-		    if (!a) {
-		        return a;
-		    }
-		    if (a.slice && a.map) {
-		        return (a as any[]).map(elem => this.convertValues(elem, classs));
-		    } else if ("object" === typeof a) {
-		        if (asMap) {
-		            for (const key of Object.keys(a)) {
-		                a[key] = new classs(a[key]);
-		            }
-		            return a;
-		        }
-		        return new classs(a);
-		    }
-		    return a;
-		}
-	}
 	export class EmployeeDocument {
 	    ID: number;
 	    TemplateID: number;

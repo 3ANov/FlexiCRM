@@ -34,8 +34,8 @@ export default function TransactionList() {
     { name: "query", label: "Поиск", type: "text" },
     { name: "type", label: "Тип", type: "select", options: typeOptions },
     { name: "category", label: "Категория", type: "text" },
-    { name: "date_from", label: "Дата с", type: "date" },
-    { name: "date_to", label: "Дата по", type: "date" },
+    { name: "date_from", label: "Дата с", type: "datetime-local" },
+    { name: "date_to", label: "Дата по", type: "datetime-local" },
     { name: "min_amount", label: "Мин. сумма", type: "number" },
     { name: "max_amount", label: "Макс. сумма", type: "number" },
   ];
