@@ -27,10 +27,12 @@ https://wails.io/docs/reference/project-config
 
 ```bash
 go install github.com/wailsapp/wails/v2/cmd/wails@latest
-
-## Live Development
+```
+### Live Development
 
 Для запуска проекта в режиме разработки с горячей перезагрузкой используйте:
 
-# Запуск проекта
+```
 wails dev
+```
+Отчёт представлен в папке [docs](/docs)
